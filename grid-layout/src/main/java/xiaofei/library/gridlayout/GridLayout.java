@@ -19,6 +19,7 @@
 package xiaofei.library.gridlayout;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.View;
@@ -47,11 +48,16 @@ public class GridLayout extends ViewGroup {
 
     public GridLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        init();
+        init(context, attrs);
     }
 
-    private void init() {
-
+    private void init(Context context, AttributeSet attrs) {
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.GridLayoutAttrs);
+        mHorizontalSpacing = (int) a.getDimension(R.styleable.GridLayoutAttrs_horizontalSpacing, mHorizontalSpacing);
+        mVerticalSpacing = (int) a.getDimension(R.styleable.GridLayoutAttrs_verticalSpacing, mVerticalSpacing);
+        mNumColumns = a.getInteger(R.styleable.GridLayoutAttrs_numColumns, mNumColumns);
+        mNumRows = a.getInteger(R.styleable.GridLayoutAttrs_numRows, mNumRows);
+        a.recycle();
     }
 
     public void setHorizontalSpacing(int horizontalSpacing) {
